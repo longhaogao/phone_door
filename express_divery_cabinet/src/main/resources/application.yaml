@@ -1,0 +1,17 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: express_divery_cabinet
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/cabinet?useSSL=false&serverTimezone=UTC
+    username: root
+    password: 123456
+  jackson:
+    default-property-inclusion: non_null # JSON处理时忽略非空字段
+mybatis-plus:
+  type-aliases-package: com.example.entity # 别名扫描包
+logging:
+  level:
+    com.example: debug
