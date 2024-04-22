@@ -1,7 +1,9 @@
 package com.example.controller;
 
+import com.example.entity.Door;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,17 +18,16 @@ import com.example.websocket.to.UnifiedTo;
 public class DoorManageController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
     @PostMapping("/open")
     public UnifiedTo openDoor(@RequestBody Door openDoor) {
-        String adminAuthority = openDoor.getAUTHORIZATION_TOKEN();
-        String userId = openDoor.getUSER_ID();
-        String doorUnion = openDoor.getDOOR_UNION();
+        Integer adminAuthority = openDoor.getAUTHORIZATION_TOKEN();
+        Integer userId = openDoor.getUserId();
+        Integer id = openDoor.getId();
 
-        if (isValidUser(adminAuthority, userId) && isClose(doorUnion)) {
-            String sql = "UPDATE cabinet_usage SET DOOR_STATUS = '1' WHERE DOOR_UNION = ?";
+        if (isValidUser(adminAuthority, userId) && isClose(id)) {
+            String sql = "UPDATE cabinet SET DOOR_STATUS = '1' WHERE id = ?";
             try {
-                int updatedRows = jdbcTemplate.update(sql, doorUnion);
+                int updatedRows = jdbcTemplate.update(sql,id);
                 UnifiedTo response = new UnifiedTo();
                 response.setReqType(UnifiedTo.ReqType.ACK_TYPE.value);
                 if (updatedRows > 0) {
@@ -64,14 +65,14 @@ public class DoorManageController {
 
     @PostMapping("/close")
     public UnifiedTo closeDoor(@RequestBody Door closeDoor) {
-        String adminAuthority = closeDoor.getAUTHORIZATION_TOKEN();
-        String userId = closeDoor.getUSER_ID();
-        String doorUnion = closeDoor.getDOOR_UNION();
+        Integer adminAuthority = closeDoor.getAUTHORIZATION_TOKEN();
+        Integer userId = closeDoor.getUserId();
+        Integer id = closeDoor.getId();
 
-        if (isValidUser(adminAuthority, userId) && isOpen(doorUnion)) {
-            String sql = "UPDATE cabinet_usage SET DOOR_STATUS = '0' WHERE DOOR_UNION = ?";
+        if (isValidUser(adminAuthority, userId) && isOpen(id)) {
+            String sql = "UPDATE cabinet SET DOOR_STATUS = '0' WHERE id = ?";
             try {
-                int updatedRows = jdbcTemplate.update(sql, doorUnion);
+                int updatedRows = jdbcTemplate.update(sql, id);
                 UnifiedTo response = new UnifiedTo();
                 response.setReqType(UnifiedTo.ReqType.ACK_TYPE.value);
                 if (updatedRows > 0) {
@@ -108,9 +109,9 @@ public class DoorManageController {
     }
 
     // 验证用户身份的方法
-    private boolean isValidUser(String authorizationToken, String userId) {
+    private boolean isValidUser(Integer authorizationToken, Integer userId) {
         // 当前登录的人 和 柜门对应的人 两个string都是账号
-        String sql = "SELECT ADMIN_AUTORITY FROM user_information WHERE USER_ID = ?";
+        String sql = "SELECT ADMIN_AUTORITY FROM user WHERE USER_ID = ?";
         Integer adminAuthority = jdbcTemplate.queryForObject(sql, Integer.class, authorizationToken);
         /*
          * 当前登陆的人权限是管理员或者是超级管理员可以通过或者当前登录的人是柜门对应的人也可以通过
@@ -119,15 +120,15 @@ public class DoorManageController {
                 && (adminAuthority == 1 || adminAuthority == 2 || authorizationToken.equals(userId));
     }
 
-    private boolean isClose(String doorUnion) {
-        String sql = "SELECT DOOR_STATUS FROM cabinet_usage WHERE DOOR_UNION = ?";
+    private boolean isClose(int doorUnion) {
+        String sql = "SELECT DOOR_STATUS FROM cabinet WHERE id = ?";
         Integer doorStatus = jdbcTemplate.queryForObject(sql, Integer.class, doorUnion);
         /* 当前的状态 */
         return doorStatus != null && doorStatus == 0;
     }
 
-    private boolean isOpen(String doorUnion) {
-        String sql = "SELECT DOOR_STATUS FROM cabinet_usage WHERE DOOR_UNION = ?";
+    private boolean isOpen(int doorUnion) {
+        String sql = "SELECT DOOR_STATUS FROM cabinet WHERE id = ?";
         Integer doorStatus = jdbcTemplate.queryForObject(sql, Integer.class, doorUnion);
         /* 当前的状态 */
         return doorStatus != null && doorStatus == 1;

@@ -22,11 +22,10 @@ public class AlarmController {
 
     @GetMapping("/alarm")
     public UnifiedTo alarmtime(@RequestBody UserTime usertime) {
-        String doorid = usertime.getDOOR_ID();
-        String doornumber = usertime.getDOOR_NUMBER();
-        Date nowtime = usertime.getnow_time();
-        String sql = "SELECT END_TIME FROM cabinet_usage where DOOR_ID=? AND DOOR_NUMBER=?";
-        Date endTime = jdbcTemplate.queryForObject(sql, Date.class, doorid, doornumber);
+        Integer doorid = usertime.getID();
+        Date nowtime = usertime.getNow_time();
+        String sql = "SELECT END_TIME FROM cabinet where ID=? ";
+        Date endTime = jdbcTemplate.queryForObject(sql, Date.class, doorid);
         try {
             UnifiedTo response = new UnifiedTo();
             State state = new State();

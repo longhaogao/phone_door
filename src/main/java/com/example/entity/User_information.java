@@ -1,5 +1,4 @@
 package com.example.entity;
-
 public class User_information {
     private String USER_NAME;
     private String USER_ID;

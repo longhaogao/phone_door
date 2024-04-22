@@ -4,7 +4,6 @@ package com.example.controller;
 import java.util.List;
 import java.util.Map;
 
-import com.example.websocket.ws.WebSocket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -21,9 +20,6 @@ import com.example.websocket.to.UnifiedTo;
 @RestController
 @RequestMapping("/person")
 public class personmanagecontroller {
-
-    @Autowired
-    WebSocket defaultWebSocket;
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -32,7 +28,7 @@ public class personmanagecontroller {
      */
     @GetMapping("/all")
     public UnifiedTo getAllUserData() {
-        String sql = "SELECT * FROM user_information";
+        String sql = "SELECT * FROM user";
         try {
             List<Map<String, Object>> userData = jdbcTemplate.queryForList(sql);
 
@@ -71,7 +67,7 @@ public class personmanagecontroller {
      */
     @PostMapping("/search")
     public UnifiedTo searchUserData(@RequestBody User_information updatedUser) {
-        String sql = "SELECT * FROM user_information WHERE USER_ID=?";
+        String sql = "SELECT * FROM user WHERE USER_ID=?";
         try {
             // 执行查询
             List<Map<String, Object>> result = jdbcTemplate.queryForList(sql, updatedUser.getUSER_ID());
@@ -125,7 +121,7 @@ public class personmanagecontroller {
             return unauthorizedResponse;
         }
 
-        String sql = "UPDATE user_information SET USER_NAME=?, FACE_INFORMATION=?, FINGER_INFORMATION=?, ADMIN_AUTORITY=?, DOOR_UNION=?, DOOR_ID=?, USER_PASSWORD=?, DOOR_NUMBER=? WHERE USER_ID=?";
+        String sql = "UPDATE user SET USER_NAME=?, FACE_INFORMATION=?, FINGER_INFORMATION=?, ADMIN_AUTORITY=?, DOOR_UNION=?, DOOR_ID=?, USER_PASSWORD=?, DOOR_NUMBER=? WHERE USER_ID=?";
         try {
             int rowsAffected = jdbcTemplate.update(sql,
                     updatedUser.getUSER_NAME(),
@@ -183,7 +179,7 @@ public class personmanagecontroller {
             unauthorizedResponse.setState(unauthorizedState);
             return unauthorizedResponse;
         }
-        String sql = "DELETE FROM user_information WHERE USER_ID=?";
+        String sql = "DELETE FROM user WHERE USER_ID=?";
         try {
             int rowsAffected = jdbcTemplate.update(sql, updatedUser.getUSER_ID());
             UnifiedTo response = new UnifiedTo();
@@ -228,7 +224,7 @@ public class personmanagecontroller {
             unauthorizedResponse.setState(unauthorizedState);
             return unauthorizedResponse;
         }
-        String sql = "INSERT INTO user_information (USER_NAME, USER_ID, USER_PASSWORD, ADMIN_AUTORITY, DOOR_ID, DOOR_NUMBER, FACE_INFORMATION, FINGER_INFORMATION, DOOR_UNION) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO user (USER_NAME, USER_ID, USER_PASSWORD, ADMIN_AUTORITY, DOOR_ID, DOOR_NUMBER, FACE_INFORMATION, FINGER_INFORMATION, DOOR_UNION) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             int rowsAffected = jdbcTemplate.update(sql,
                     updatedUser.getUSER_NAME(),
@@ -272,7 +268,7 @@ public class personmanagecontroller {
     // 验证用户身份的方法
     private boolean isValidUser(String authorizationToken) {
         // 当前登录的人
-        String sql = "SELECT ADMIN_AUTORITY FROM user_information WHERE USER_ID = ?";
+        String sql = "SELECT ADMIN_AUTORITY FROM user WHERE USER_ID = ?";
         Integer adminAuthority = jdbcTemplate.queryForObject(sql, Integer.class, authorizationToken);
         /*
          * 当前登陆的人权限是管理员或者是超级管理员可以通过
