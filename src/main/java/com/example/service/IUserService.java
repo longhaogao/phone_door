@@ -1,9 +1,9 @@
 package com.example.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.example.dao.ApprovalRecordDTO;
-import com.example.dao.LoginFormDTO;
-import com.example.dao.Result;
+import com.example.Dto.ApprovalRecordDTO;
+import com.example.Dto.LoginFormDTO;
+import com.example.Dto.Result;
 import com.example.entity.Approval;
 import com.example.entity.User;
 

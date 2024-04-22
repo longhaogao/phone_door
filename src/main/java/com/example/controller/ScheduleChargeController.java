@@ -1,6 +1,6 @@
 package com.example.controller;
 
-import com.example.entity.Result;
+import com.example.Dto.Result;
 import com.example.entity.ScheduleCharge;
 import com.example.service.ScheduleChargeService;
 import lombok.extern.slf4j.Slf4j;

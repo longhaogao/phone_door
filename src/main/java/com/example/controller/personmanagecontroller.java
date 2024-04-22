@@ -4,6 +4,7 @@ import java.net.http.WebSocket;
 import java.util.List;
 import java.util.Map;
 
+import com.example.websocket.ws.WebSocket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;

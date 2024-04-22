@@ -1,8 +1,7 @@
 package com.example.controller;
 
-import com.example.entity.Result;
+import com.example.Dto.Result;
 import com.example.entity.ScheduleCabinet;
-import com.example.entity.ScheduleCharge;
 import com.example.service.ScheduleCabinetService;
 
 import lombok.extern.slf4j.Slf4j;
