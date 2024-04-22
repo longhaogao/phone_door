@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.Dto.Bind;
 import com.example.entity.Cabinet;
+import com.example.entity.Result;
 import com.example.entity.ScheduleCabinet;
 import com.example.service.CabinetService;
 import com.example.service.ScheduleCabinetService;
@@ -25,18 +26,19 @@ public class CabinetController {
      * @param
      */
     @PutMapping("/bind")
-    public void bind(@RequestBody Bind bind){
+    public Result bind(@RequestBody Bind bind){
         System.out.println("++++++++++++++"+bind.getCabinetId()+"++++++"+bind.getUserId());
         cabinetService.bind(bind.getCabinetId(),bind.getUserId());
+        return Result.ok();
     }
 
     /**
      * 开箱 返回 1可以开箱，2管理时间段 3管控时间段
      */
     @GetMapping("/open")
-    public Integer openCabinet(Integer cabinetId){
+    public Result openCabinet(Integer cabinetId){
         Integer status = cabinetService.open(cabinetId);
-        return status;
+        return Result.ok(status);
     }
 
 
@@ -44,7 +46,8 @@ public class CabinetController {
      * 为某个箱子设置单独的开柜时间
      */
     @PutMapping("/setCabinetTime")
-    public void setCabinetTime(@RequestBody Cabinet cabinet){
+    public Result setCabinetTime(@RequestBody Cabinet cabinet){
         cabinetService.setCabinetTime(cabinet);
+        return Result.ok();
     }
 }

@@ -1,95 +1,66 @@
 package com.example.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
+@Data
+@TableName("user")
 public class User {
-    private String USER_NAME;
-    private String USER_ID;
-    private String USER_PASSWORD;
-    private String FACE_INFORMATION;
-    private String FINGER_INFORMATION;
-    private int ADMIN_AUTORITY;
-    private String DOOR_ID;
-    private String DOOR_NUMBER;
-    private String DOOR_UNION;
-    private String AUTHORIZATION_TOKEN;
+    /**
+     * 主键，用户id
+     */
+    @TableId(value = "user_id", type = IdType.ASSIGN_UUID)
+    private String userId;
 
-    public String getUSER_NAME() {
-        return USER_NAME;
-    }
+    /**
+     * 用户名
+     */
+    private String userName;
 
-    public void setUSER_NAME(String USER_NAME) {
-        this.USER_NAME = USER_NAME;
-    }
+    /**
+     * 账号
+     */
+    private String userAccount;
 
-    public String getUSER_ID() {
-        return USER_ID;
-    }
+    /**
+     * 密码
+     */
+    private String userPassword;
 
-    public void setUSER_ID(String USER_ID) {
-        this.USER_ID = USER_ID;
-    }
+    /**
+     * 人脸信息
+     */
+    private String faceInformation;
 
-    public String getUSER_PASSWORD() {
-        return USER_PASSWORD;
-    }
+    /**
+     * 指纹信息
+     */
+    private String fingerInformation;
 
-    public void setUSER_PASSWORD(String USER_PASSWORD) {
-        this.USER_PASSWORD = USER_PASSWORD;
-    }
+    /**
+     * 管理权限
+     */
+    private int adminAuthority;
 
-    public String getFACE_INFORMATION() {
-        return FACE_INFORMATION;
-    }
+    /**
+     * 班级编号
+     */
+    private String classId;
 
-    public void setFACE_INFORMATION(String FACE_INFORMATION) {
-        this.FACE_INFORMATION = FACE_INFORMATION;
-    }
+    /**
+     * 柜子编号
+     */
+    private String doorId;
 
-    public String getFINGER_INFORMATION() {
-        return FINGER_INFORMATION;
-    }
+    /**
+     * 柜门编号
+     */
+    private String doorNumber;
 
-    public void setFINGER_INFORMATION(String FINGER_INFORMATION) {
-        this.FINGER_INFORMATION = FINGER_INFORMATION;
-    }
-
-    public int getADMIN_AUTORITY() {
-        return ADMIN_AUTORITY;
-    }
-
-    public void setADMIN_AUTORITY(int ADMIN_AUTORITY) {
-        this.ADMIN_AUTORITY = ADMIN_AUTORITY;
-    }
-
-    public String getDOOR_ID() {
-        return DOOR_ID;
-    }
-
-    public void setDOOR_ID(String DOOR_ID) {
-        this.DOOR_ID = DOOR_ID;
-    }
-
-    public String getDOOR_NUMBER() {
-        return DOOR_NUMBER;
-    }
-
-    public void setDOOR_NUMBER(String DOOR_NUMBER) {
-        this.DOOR_NUMBER = DOOR_NUMBER;
-    }
-
-    public String getDOOR_UNION() {
-        return DOOR_UNION;
-    }
-
-    public void setDOOR_UNION(String DOOR_UNION) {
-        this.DOOR_UNION = DOOR_UNION;
-    }
-
-    public String getAUTHORIZATION_TOKEN() {
-        return AUTHORIZATION_TOKEN;
-    }
-
-    public void setAUTHORIZATION_TOKEN(String AUTHORIZATION_TOKEN) {
-        this.AUTHORIZATION_TOKEN = AUTHORIZATION_TOKEN;
-    }
-
+    /**
+     * 所属柜门编号
+     */
+    private String doorUnion;
 }

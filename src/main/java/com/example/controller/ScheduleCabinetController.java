@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.entity.Result;
 import com.example.entity.ScheduleCabinet;
 import com.example.entity.ScheduleCharge;
 import com.example.service.ScheduleCabinetService;
@@ -25,11 +26,12 @@ public class ScheduleCabinetController {
      * 查询所有柜门可用时间区段
      */
     @GetMapping("/getall")
-    public void getAll(){
+    public Result getAll(){
         List<ScheduleCabinet> list = scheduleCabinetService.getAll();
         for (ScheduleCabinet scheduleCharge : list) {
             log.info("查询的id:"+scheduleCharge.getId());
         }
+        return Result.ok(list);
     }
 
 
@@ -38,9 +40,10 @@ public class ScheduleCabinetController {
      * @param scheduleCabinet
      */
     @PostMapping("/add")
-    public void add(@RequestBody ScheduleCabinet scheduleCabinet ){
+    public Result add(@RequestBody ScheduleCabinet scheduleCabinet ){
         scheduleCabinetService.add(scheduleCabinet);
         log.info("插入一条数据的id："+scheduleCabinet.getId());
+        return Result.ok();
     }
 
 
@@ -49,9 +52,10 @@ public class ScheduleCabinetController {
      * @param id
      */
     @DeleteMapping("/delete/{id}")
-    public void deleteById(@PathVariable Integer id){
+    public Result deleteById(@PathVariable Integer id){
         scheduleCabinetService.deleteById(id);
         log.info("删除一条充电记录id为："+id);
+        return Result.ok();
     }
 
     /**
@@ -59,8 +63,9 @@ public class ScheduleCabinetController {
      * @param scheduleCabinet
      */
     @PutMapping("/update")
-    public void update(@RequestBody ScheduleCabinet scheduleCabinet){
+    public Result update(@RequestBody ScheduleCabinet scheduleCabinet){
         scheduleCabinetService.updateRecord(scheduleCabinet);
         log.info("更新一条充电记录id为："+scheduleCabinet.getId());
+        return Result.ok();
     }
 }

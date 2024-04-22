@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.entity.Cabinet;
+import com.example.entity.Result;
 import com.example.entity.ScheduleCabinet;
 import com.example.mapper.CabinetMapper;
 import com.example.service.CabinetService;

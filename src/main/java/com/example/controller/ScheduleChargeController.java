@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.entity.Result;
 import com.example.entity.ScheduleCharge;
 import com.example.service.ScheduleChargeService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,11 +21,12 @@ public class ScheduleChargeController {
      * 查询所有充电时间区段
      */
     @GetMapping("/getall")
-    public void getAll(){
+    public Result getAll(){
         List<ScheduleCharge> list = scheduleChargeService.getAll();
         for (ScheduleCharge scheduleCharge : list) {
             log.info("查询的id:"+scheduleCharge.getId());
         }
+        return Result.ok(list);
     }
 
 
@@ -33,9 +35,10 @@ public class ScheduleChargeController {
      * @param scheduleCharge
      */
     @PostMapping("/add")
-    public void add(@RequestBody ScheduleCharge scheduleCharge){
+    public Result add(@RequestBody ScheduleCharge scheduleCharge){
         scheduleChargeService.add(scheduleCharge);
         log.info("插入一条数据的id："+scheduleCharge.getId());
+        return Result.ok();
     }
 
 
@@ -44,9 +47,10 @@ public class ScheduleChargeController {
      * @param id
      */
     @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable Integer id){
+    public Result delete(@PathVariable Integer id){
         scheduleChargeService.deleteById(id);
         log.info("删除一条充电记录id为："+id);
+        return Result.ok();
     }
 
     /**
@@ -54,8 +58,9 @@ public class ScheduleChargeController {
      * @param scheduleCharge
      */
     @PutMapping("/update")
-    public void update(@RequestBody ScheduleCharge scheduleCharge){
+    public Result update(@RequestBody ScheduleCharge scheduleCharge){
         scheduleChargeService.updateRecord(scheduleCharge);
         log.info("更新一条充电记录id为："+scheduleCharge.getId());
+        return Result.ok();
     }
 }
