@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.entity.State;
-import com.example.entity.User;
+import com.example.entity.User_information;
 import com.example.websocket.to.UnifiedTo;
 
 @RestController
@@ -69,7 +69,7 @@ public class personmanagecontroller {
      * 以用户的id进行搜索
      */
     @PostMapping("/search")
-    public UnifiedTo searchUserData(@RequestBody User updatedUser) {
+    public UnifiedTo searchUserData(@RequestBody User_information updatedUser) {
         String sql = "SELECT * FROM user_information WHERE USER_ID=?";
         try {
             // 执行查询
@@ -111,7 +111,7 @@ public class personmanagecontroller {
      * 修改信息
      */
     @PostMapping("/modify")
-    public UnifiedTo updateUserData(@RequestBody User updatedUser) {
+    public UnifiedTo updateUserData(@RequestBody User_information updatedUser) {
         // 验证用户身份
         String authorizationToken = updatedUser.getAUTHORIZATION_TOKEN();
         if (!isValidUser(authorizationToken)) {
@@ -170,7 +170,7 @@ public class personmanagecontroller {
      */
 
     @PostMapping("/delete")
-    public UnifiedTo deleteUserData(@RequestBody User updatedUser) {
+    public UnifiedTo deleteUserData(@RequestBody User_information updatedUser) {
         // 验证用户身份
         String authorizationToken = updatedUser.getAUTHORIZATION_TOKEN();
         if (!isValidUser(authorizationToken)) {
@@ -215,7 +215,7 @@ public class personmanagecontroller {
     }
 
     @PostMapping("/add")
-    public UnifiedTo addUserData(@RequestBody User updatedUser) {
+    public UnifiedTo addUserData(@RequestBody User_information updatedUser) {
         // 验证用户身份
         String authorizationToken = updatedUser.getAUTHORIZATION_TOKEN();
         if (!isValidUser(authorizationToken)) {
