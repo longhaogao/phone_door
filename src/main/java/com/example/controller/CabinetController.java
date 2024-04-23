@@ -8,6 +8,8 @@ import com.example.service.ScheduleCabinetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/cabinet")
 public class CabinetController {
@@ -17,6 +19,13 @@ public class CabinetController {
 
     @Autowired
     private ScheduleCabinetService scheduleCabinetService;
+
+
+    @GetMapping("/getall/{doorNumber}")
+    public Result getAll(@PathVariable Integer doorNumber){
+        List<Cabinet> cabinetList = cabinetService.getall(doorNumber);
+        return Result.ok(cabinetList);
+    }
 
     /**
      * 绑定柜子id和用户id

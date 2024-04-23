@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Calendar;
+import java.util.List;
 
 @Service
 public class CabinetServiceImpl extends ServiceImpl<CabinetMapper, Cabinet> implements CabinetService {
@@ -97,5 +98,11 @@ public class CabinetServiceImpl extends ServiceImpl<CabinetMapper, Cabinet> impl
         cabinet.setUpdateTime(LocalDateTime.now());
         cabinet.setUpdateUser(1);
         this.updateById(cabinet);
+    }
+
+    @Override
+    public List<Cabinet> getall(Integer doorNumber) {
+        List<Cabinet> cabinetList = query().eq("door_number", doorNumber).list();
+        return cabinetList;
     }
 }
