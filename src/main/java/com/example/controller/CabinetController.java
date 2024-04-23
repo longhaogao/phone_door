@@ -1,7 +1,9 @@
 package com.example.controller;
 
 import com.example.Dto.Bind;
+import com.example.Dto.Result;
 import com.example.entity.Cabinet;
+import com.example.service.CabinetService;
 import com.example.service.ScheduleCabinetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

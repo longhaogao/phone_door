@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.entity.Cabinet;
 import com.example.entity.ScheduleCabinet;
 import com.example.mapper.CabinetMapper;
+import com.example.service.CabinetService;
 import com.example.service.ScheduleCabinetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
