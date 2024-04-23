@@ -1,26 +1,14 @@
-package com.example.entity;
+package com.example.Dto;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 public class State {
     private int state_code;
     private String state_msg;
-
-    public int getstate_code() {
-        return state_code;
-    }
-
-    public void setstate_code(int state_code) {
-        this.state_code = state_code;
-    }
-
-    public String getstate_msg() {
-        return state_msg;
-    }
-
-    public void setstate_msg(String state_msg) {
-        this.state_msg = state_msg;
-    }
 
     // Convert object to JSON string
     public String toJSONString() {

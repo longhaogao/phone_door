@@ -1,6 +1,6 @@
 package com.example.controller;
 
-import com.example.entity.Door;
+import com.example.Dto.Door;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.relational.core.sql.In;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.entity.State;
+import com.example.Dto.State;
 import com.example.websocket.to.UnifiedTo;
 
 @RestController
@@ -32,14 +32,14 @@ public class DoorManageController {
                 response.setReqType(UnifiedTo.ReqType.ACK_TYPE.value);
                 if (updatedRows > 0) {
                     State state = new State();
-                    state.setstate_code(200);
-                    state.setstate_msg("Door opened successfully");
+                    state.setState_code(200);
+                    state.setState_msg("Door opened successfully");
                     response.setState(state);
                     // saveLogToDatabase("打开门", adminAuthority);
                 } else {
                     State state = new State();
-                    state.setstate_code(404);
-                    state.setstate_msg("No data found");
+                    state.setState_code(404);
+                    state.setState_msg("No data found");
                     response.setState(state);
                 }
                 return response;
@@ -47,8 +47,8 @@ public class DoorManageController {
                 UnifiedTo errorResponse = new UnifiedTo();
                 errorResponse.setReqType(UnifiedTo.ReqType.ACK_TYPE.value);
                 State errorState = new State();
-                errorState.setstate_code(500);
-                errorState.setstate_msg("Failed to open door: Database error");
+                errorState.setState_code(500);
+                errorState.setState_msg("Failed to open door: Database error");
                 errorResponse.setState(errorState);
                 return errorResponse;
             }
@@ -56,8 +56,8 @@ public class DoorManageController {
             UnifiedTo unauthorizedResponse = new UnifiedTo();
             unauthorizedResponse.setReqType(UnifiedTo.ReqType.ACK_TYPE.value);
             State unauthorizedState = new State();
-            unauthorizedState.setstate_code(401);
-            unauthorizedState.setstate_msg("Unauthorized access or door is already open");
+            unauthorizedState.setState_code(401);
+            unauthorizedState.setState_msg("Unauthorized access or door is already open");
             unauthorizedResponse.setState(unauthorizedState);
             return unauthorizedResponse;
         }
@@ -77,14 +77,14 @@ public class DoorManageController {
                 response.setReqType(UnifiedTo.ReqType.ACK_TYPE.value);
                 if (updatedRows > 0) {
                     State state = new State();
-                    state.setstate_code(200);
-                    state.setstate_msg("Door closed successfully");
+                    state.setState_code(200);
+                    state.setState_msg("Door closed successfully");
                     response.setState(state);
                     // saveLogToDatabase("关闭门", adminAuthority);
                 } else {
                     State state = new State();
-                    state.setstate_code(404);
-                    state.setstate_msg("No data found");
+                    state.setState_code(404);
+                    state.setState_msg("No data found");
                     response.setState(state);
                 }
                 return response;
@@ -92,8 +92,8 @@ public class DoorManageController {
                 UnifiedTo errorResponse = new UnifiedTo();
                 errorResponse.setReqType(UnifiedTo.ReqType.ACK_TYPE.value);
                 State errorState = new State();
-                errorState.setstate_code(500);
-                errorState.setstate_msg("Failed to close door: Database error");
+                errorState.setState_code(500);
+                errorState.setState_msg("Failed to close door: Database error");
                 errorResponse.setState(errorState);
                 return errorResponse;
             }
@@ -101,8 +101,8 @@ public class DoorManageController {
             UnifiedTo unauthorizedResponse = new UnifiedTo();
             unauthorizedResponse.setReqType(UnifiedTo.ReqType.ACK_TYPE.value);
             State unauthorizedState = new State();
-            unauthorizedState.setstate_code(401);
-            unauthorizedState.setstate_msg("Unauthorized access or door is already closed");
+            unauthorizedState.setState_code(401);
+            unauthorizedState.setState_msg("Unauthorized access or door is already closed");
             unauthorizedResponse.setState(unauthorizedState);
             return unauthorizedResponse;
         }

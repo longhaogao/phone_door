@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.entity.State;
-import com.example.entity.User_information;
+import com.example.Dto.State;
+import com.example.Dto.User_information;
 import com.example.websocket.to.UnifiedTo;
 
 @RestController
@@ -37,16 +37,16 @@ public class personmanagecontroller {
                 // 查询成功
                 unifiedTo.setReqType(UnifiedTo.ReqType.ACK_TYPE.value);
                 State state = new State();
-                state.setstate_code(200);
-                state.setstate_msg("Data retrieved successfully");
+                state.setState_code(200);
+                state.setState_msg("Data retrieved successfully");
                 unifiedTo.setState(state);
                 unifiedTo.setReqPayload(userData);
             } else {
                 // 查询结果为空
                 unifiedTo.setReqType(UnifiedTo.ReqType.ACK_TYPE.value);
                 State state = new State();
-                state.setstate_code(404);
-                state.setstate_msg("No data found");
+                state.setState_code(404);
+                state.setState_msg("No data found");
                 unifiedTo.setState(state);
             }
             return unifiedTo;
@@ -55,8 +55,8 @@ public class personmanagecontroller {
             UnifiedTo unifiedTo = new UnifiedTo();
             unifiedTo.setReqType(UnifiedTo.ReqType.ACK_TYPE.value);
             State state = new State();
-            state.setstate_code(500);
-            state.setstate_msg("Failed to retrieve data");
+            state.setState_code(500);
+            state.setState_msg("Failed to retrieve data");
             unifiedTo.setState(state);
             return unifiedTo;
         }
@@ -76,8 +76,8 @@ public class personmanagecontroller {
             if (!result.isEmpty()) {
                 // 创建状态对象并设置状态信息
                 State state = new State();
-                state.setstate_code(200);
-                state.setstate_msg("Search successful");
+                state.setState_code(200);
+                state.setState_msg("Search successful");
 
                 // 设置状态和查询结果到 UnifiedTo 对象中
                 unifiedTo.setReqType(UnifiedTo.ReqType.ACK_TYPE.value);
@@ -87,8 +87,8 @@ public class personmanagecontroller {
                 // 如果结果为空，则返回未找到数据的错误信息
                 unifiedTo.setReqType(UnifiedTo.ReqType.ACK_TYPE.value);
                 State state = new State();
-                state.setstate_code(404);
-                state.setstate_msg("No data found");
+                state.setState_code(404);
+                state.setState_msg("No data found");
                 unifiedTo.setState(state);
             }
             return unifiedTo;
@@ -97,8 +97,8 @@ public class personmanagecontroller {
             UnifiedTo unifiedTo = new UnifiedTo();
             unifiedTo.setReqType(UnifiedTo.ReqType.ACK_TYPE.value);
             State state = new State();
-            state.setstate_code(500);
-            state.setstate_msg("Failed to search data");
+            state.setState_code(500);
+            state.setState_msg("Failed to search data");
             unifiedTo.setState(state);
             return unifiedTo;
         }
@@ -115,8 +115,8 @@ public class personmanagecontroller {
             UnifiedTo unauthorizedResponse = new UnifiedTo();
             unauthorizedResponse.setReqType(UnifiedTo.ReqType.ACK_TYPE.value);
             State unauthorizedState = new State();
-            unauthorizedState.setstate_code(401);
-            unauthorizedState.setstate_msg("Unauthorized access");
+            unauthorizedState.setState_code(401);
+            unauthorizedState.setState_msg("Unauthorized access");
             unauthorizedResponse.setState(unauthorizedState);
             return unauthorizedResponse;
         }
@@ -139,15 +139,15 @@ public class personmanagecontroller {
             if (rowsAffected > 0) {
                 // 更新成功
                 State state = new State();
-                state.setstate_code(200);
-                state.setstate_msg("Modification successful");
+                state.setState_code(200);
+                state.setState_msg("Modification successful");
                 response.setState(state);
                 saveLogToDatabase("修改身份信息", authorizationToken);
             } else {
                 // 更新失败，返回具体错误信息
                 State state = new State();
-                state.setstate_code(500);
-                state.setstate_msg("Failed to update data: No rows affected");
+                state.setState_code(500);
+                state.setState_msg("Failed to update data: No rows affected");
                 response.setState(state);
             }
             return response;
@@ -156,8 +156,8 @@ public class personmanagecontroller {
             UnifiedTo errorResponse = new UnifiedTo();
             errorResponse.setReqType(UnifiedTo.ReqType.ACK_TYPE.value);
             State errorState = new State();
-            errorState.setstate_code(500);
-            errorState.setstate_msg("Failed to update data: Database error");
+            errorState.setState_code(500);
+            errorState.setState_msg("Failed to update data: Database error");
             errorResponse.setState(errorState);
             return errorResponse;
         }
@@ -174,8 +174,8 @@ public class personmanagecontroller {
             UnifiedTo unauthorizedResponse = new UnifiedTo();
             unauthorizedResponse.setReqType(UnifiedTo.ReqType.ACK_TYPE.value);
             State unauthorizedState = new State();
-            unauthorizedState.setstate_code(401);
-            unauthorizedState.setstate_msg("Unauthorized access");
+            unauthorizedState.setState_code(401);
+            unauthorizedState.setState_msg("Unauthorized access");
             unauthorizedResponse.setState(unauthorizedState);
             return unauthorizedResponse;
         }
@@ -187,15 +187,15 @@ public class personmanagecontroller {
             if (rowsAffected > 0) {
                 // 删除成功
                 State state = new State();
-                state.setstate_code(200);
-                state.setstate_msg("Deletion successful");
+                state.setState_code(200);
+                state.setState_msg("Deletion successful");
                 response.setState(state);
                 saveLogToDatabase("删除身份信息", authorizationToken);
             } else {
                 // 删除失败，返回具体错误信息
                 State state = new State();
-                state.setstate_code(500);
-                state.setstate_msg("Failed to delete data");
+                state.setState_code(500);
+                state.setState_msg("Failed to delete data");
                 response.setState(state);
             }
             return response;
@@ -204,8 +204,8 @@ public class personmanagecontroller {
             UnifiedTo errorResponse = new UnifiedTo();
             errorResponse.setReqType(UnifiedTo.ReqType.ACK_TYPE.value);
             State errorState = new State();
-            errorState.setstate_code(500);
-            errorState.setstate_msg("Failed to delete data: Database error");
+            errorState.setState_code(500);
+            errorState.setState_msg("Failed to delete data: Database error");
             errorResponse.setState(errorState);
             return errorResponse;
         }
@@ -219,8 +219,8 @@ public class personmanagecontroller {
             UnifiedTo unauthorizedResponse = new UnifiedTo();
             unauthorizedResponse.setReqType(UnifiedTo.ReqType.ACK_TYPE.value);
             State unauthorizedState = new State();
-            unauthorizedState.setstate_code(401);
-            unauthorizedState.setstate_msg("Unauthorized access");
+            unauthorizedState.setState_code(401);
+            unauthorizedState.setState_msg("Unauthorized access");
             unauthorizedResponse.setState(unauthorizedState);
             return unauthorizedResponse;
         }
@@ -241,15 +241,15 @@ public class personmanagecontroller {
             if (rowsAffected > 0) {
                 // 添加成功
                 State state = new State();
-                state.setstate_code(200);
-                state.setstate_msg("Add successful");
+                state.setState_code(200);
+                state.setState_msg("Add successful");
                 response.setState(state);
                 saveLogToDatabase("添加身份信息", authorizationToken);
             } else {
                 // 添加失败，返回具体错误信息
                 State state = new State();
-                state.setstate_code(500);
-                state.setstate_msg("Failed to add data");
+                state.setState_code(500);
+                state.setState_msg("Failed to add data");
                 response.setState(state);
             }
             return response;
@@ -258,8 +258,8 @@ public class personmanagecontroller {
             UnifiedTo errorResponse = new UnifiedTo();
             errorResponse.setReqType(UnifiedTo.ReqType.ACK_TYPE.value);
             State errorState = new State();
-            errorState.setstate_code(500);
-            errorState.setstate_msg("Failed to add data: Database error");
+            errorState.setState_code(500);
+            errorState.setState_msg("Failed to add data: Database error");
             errorResponse.setState(errorState);
             return errorResponse;
         }

@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.entity.State;
-import com.example.entity.UserTime;
+import com.example.Dto.State;
+import com.example.Dto.UserTime;
 import com.example.websocket.to.UnifiedTo;
 import com.example.websocket.ws.WebSocket;
 
@@ -31,19 +31,19 @@ public class AlarmController {
             State state = new State();
             if (nowtime.after(endTime)) {
                 // 如果实际时间晚于查询时间，则返回状态和信息
-                state.setstate_code(10);
-                state.setstate_msg("超时");
+                state.setState_code(10);
+                state.setState_msg("超时");
             } else {
-                state.setstate_code(200);
-                state.setstate_msg("准时");
+                state.setState_code(200);
+                state.setState_msg("准时");
             }
             response.setState(state);
             return response;
         } catch (DataAccessException e) {
             // 处理数据库访问异常
             State state = new State();
-            state.setstate_code(500);
-            state.setstate_msg("数据库访问异常");
+            state.setState_code(500);
+            state.setState_msg("数据库访问异常");
             UnifiedTo response = new UnifiedTo();
             response.setState(state);
             return response;

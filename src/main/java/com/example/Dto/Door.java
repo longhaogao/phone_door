@@ -1,4 +1,4 @@
-package com.example.entity;
+package com.example.Dto;
 import lombok.Getter;
 import lombok.Setter;
 import java.sql.Time;
