@@ -11,7 +11,7 @@
  Target Server Version : 80016 (8.0.16)
  File Encoding         : 65001
 
- Date: 21/04/2024 11:58:05
+ Date: 23/04/2024 11:16:02
 */
 
 SET NAMES utf8mb4;
@@ -22,7 +22,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `audit_message`;
 CREATE TABLE `audit_message`  (
-  `APPROVAL_ID` INT  NULL DEFAULT NULL COMMENT '审批id',
+  `APPROVAL_ID` int(11) NULL DEFAULT NULL COMMENT '审批id',
   `USER_NAME` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '姓名',
   `USER_ID` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '账号',
   `ITEMS_SUBJECT` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '审批事项',
@@ -31,7 +31,7 @@ CREATE TABLE `audit_message`  (
   `END_TIME` time NULL DEFAULT NULL COMMENT '截止时间',
   `IS_OK` int(11) NULL DEFAULT NULL COMMENT '是否通过',
   `INTEMS_STATUS` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '状态'
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of audit_message
@@ -51,7 +51,7 @@ CREATE TABLE `audit_personnel_permissions`  (
   `DOOR_UNION` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '所属柜门编号',
   `IS_OK` int(11) NULL DEFAULT NULL COMMENT '是否通过',
   `INTEMS_STATUS` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '状态'
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of audit_personnel_permissions
@@ -75,7 +75,7 @@ CREATE TABLE `cabinet`  (
   `create_user` int(11) NULL DEFAULT NULL COMMENT '创建人id',
   `update_user` int(11) NULL DEFAULT NULL COMMENT '更新人id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of cabinet
@@ -99,7 +99,7 @@ CREATE TABLE `registration_table`  (
   `DOOR_ID` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '柜子编号',
   `DOOR_NUMBER` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '柜门编号',
   `APPLY_STATUS` int(11) NULL DEFAULT NULL COMMENT '状态'
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of registration_table
@@ -121,7 +121,7 @@ CREATE TABLE `schedule_cabinet`  (
   `create_user` int(11) NULL DEFAULT NULL COMMENT '创建人id',
   `update_user` int(11) NULL DEFAULT NULL COMMENT '更新人id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2118889475 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2118889475 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of schedule_cabinet
@@ -146,7 +146,7 @@ CREATE TABLE `schedule_charge`  (
   `create_user` int(11) NOT NULL COMMENT '创建人id',
   `update_user` int(11) NOT NULL COMMENT '更新人id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2118889475 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2118889475 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of schedule_charge
@@ -157,55 +157,42 @@ INSERT INTO `schedule_charge` VALUES (3, 2, '08:00:00', '18:00:00', 1, '2024-04-
 INSERT INTO `schedule_charge` VALUES (2118889474, 2, '08:00:00', '18:00:00', 1, '2024-04-03 20:58:51', '2024-04-03 20:58:51', 1, 1);
 
 -- ----------------------------
--- Table structure for schema_configuration
--- ----------------------------
-DROP TABLE IF EXISTS `schema_configuration`;
-CREATE TABLE `schema_configuration`  (
-  `DOOR_ID` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '柜子编号',
-  `DOOR_NUMBER` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '柜门编号',
-  `DOOR_UNION` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '所属柜门编号',
-  `START_TIME` time NULL DEFAULT NULL COMMENT '起始时间',
-  `END_TIME` time NULL DEFAULT NULL COMMENT '截止时间',
-  `DOOR_STATUS` int(11) NULL DEFAULT NULL COMMENT '状态',
-  `REMARK` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`DOOR_ID`, `DOOR_NUMBER`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of schema_configuration
--- ----------------------------
-
--- ----------------------------
--- Table structure for user_information
--- ----------------------------
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user`  (
-  `USER_ID` INT NOT NULL COMMENT '用户id',
-  `USER_NAME` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '姓名',
-  `USER_ACCOUNT` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '账号',
-  `USER_PASSWORD` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '密码',
-  `ADMIN_AUTORITY` int NULL DEFAULT NULL COMMENT '管理权限',
-  `CLASS_ID` INT  NULL DEFAULT NULL COMMENT '班级编号',
-  `DOOR_ID` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '柜子编号',
-  `DOOR_NUMBER` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '柜门编号',
-  `FACE_INFORMATION` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `FINGER_INFORMATION` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `DOOR_UNION` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`USER_ID`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
--- ----------------------------
--- Records of user_information
--- ----------------------------
--- ----------------------------
 -- Table structure for system_logs
 -- ----------------------------
 DROP TABLE IF EXISTS `system_logs`;
 CREATE TABLE `system_logs`  (
   `log_message` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '日志内容',
   `time` datetime NULL DEFAULT NULL COMMENT '时间',
-  `USER_ID` INT NOT NULL COMMENT '用户id',
+  `USER_ID` int(11) NOT NULL COMMENT '用户id',
   INDEX `USER_ID`(`USER_ID` ASC) USING BTREE,
   CONSTRAINT `system_logs_ibfk_1` FOREIGN KEY (`USER_ID`) REFERENCES `user` (`USER_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of system_logs
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for user
+-- ----------------------------
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user`  (
+  `USER_ID` int(11) NOT NULL COMMENT '用户id',
+  `USER_NAME` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '姓名',
+  `USER_ACCOUNT` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '账号',
+  `USER_PASSWORD` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '密码',
+  `ADMIN_AUTORITY` int(11) NULL DEFAULT NULL COMMENT '管理权限',
+  `CLASS_ID` int(11) NULL DEFAULT NULL COMMENT '班级编号',
+  `DOOR_ID` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '柜子编号',
+  `DOOR_NUMBER` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '柜门编号',
+  `FACE_INFORMATION` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `FINGER_INFORMATION` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `DOOR_UNION` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`USER_ID`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of user
+-- ----------------------------
 
 SET FOREIGN_KEY_CHECKS = 1;
