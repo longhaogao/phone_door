@@ -52,15 +52,12 @@ public class User {
     /**
      * 柜子编号
      */
-    private String doorId;
+    private Integer doorId;
 
     /**
      * 柜门编号
      */
-    private String doorNumber;
+    private Integer doorNumber;
 
-    /**
-     * 所属柜门编号
-     */
-    private String doorUnion;
+
 }

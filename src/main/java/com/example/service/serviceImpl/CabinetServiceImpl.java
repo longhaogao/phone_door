@@ -3,10 +3,13 @@ package com.example.service.serviceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.controller.personmanagecontroller;
 import com.example.entity.Cabinet;
 import com.example.entity.ScheduleCabinet;
+import com.example.entity.User;
 import com.example.mapper.CabinetMapper;
 import com.example.service.CabinetService;
+import com.example.service.IUserService;
 import com.example.service.ScheduleCabinetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,8 +24,12 @@ public class CabinetServiceImpl extends ServiceImpl<CabinetMapper, Cabinet> impl
     @Autowired
     private ScheduleCabinetService scheduleCabinetService;
 
+    @Autowired
+    private IUserService userService;
+
     @Override
     public void bind(Integer cabinetId, Integer userId) {
+        //1.更新柜子表
         //检查柜子是否绑定为空
         Cabinet cabinet = this.getById(cabinetId);
         if(cabinet.getUserId()!=null)
@@ -34,8 +41,16 @@ public class CabinetServiceImpl extends ServiceImpl<CabinetMapper, Cabinet> impl
         //更新时间，更新人
         updateWrapper.set(Cabinet::getUpdateTime, LocalDateTime.now());
         updateWrapper.set(Cabinet::getUpdateUser,1);
-
         this.update(updateWrapper);
+
+        //2.更新用户表
+        User user = userService.getById(userId);
+        Integer doorId = cabinet.getDoorId();
+        Integer doorNumber = cabinet.getDoorNumber();
+        user.setDoorId(doorId);
+        user.setDoorNumber(doorNumber);
+        userService.updateById(user);
+
     }
 
     @Override
