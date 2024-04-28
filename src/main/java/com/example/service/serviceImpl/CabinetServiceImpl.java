@@ -2,6 +2,7 @@ package com.example.service.serviceImpl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.controller.personmanagecontroller;
 import com.example.entity.Cabinet;
@@ -104,5 +105,19 @@ public class CabinetServiceImpl extends ServiceImpl<CabinetMapper, Cabinet> impl
     public List<Cabinet> getall(Integer doorNumber) {
         List<Cabinet> cabinetList = query().eq("door_number", doorNumber).list();
         return cabinetList;
+    }
+
+    @Override
+    public void clearAll(int doorNumber) {
+        LambdaQueryWrapper<Cabinet> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Cabinet::getDoorNumber,doorNumber);
+        List<Cabinet> cabinetList = this.list(queryWrapper);
+        //设置userid
+        for(Cabinet temp:cabinetList) {
+            temp.setUserId(null);
+            temp.setUpdateTime(LocalDateTime.now());
+        }
+        //更新
+        this.updateBatchById(cabinetList);
     }
 }

@@ -56,4 +56,14 @@ public class CabinetController {
         cabinetService.setCabinetTime(cabinet);
         return Result.ok();
     }
+
+    /**
+     * 一键全清功能，解除所有该箱柜的绑定的人员id
+     * @return doorNumber 箱柜的id
+     */
+    @PutMapping("/clearAll/{doorNumber}")
+    public Result clearAll(@PathVariable int doorNumber){
+        cabinetService.clearAll(doorNumber);
+        return Result.ok();
+    }
 }

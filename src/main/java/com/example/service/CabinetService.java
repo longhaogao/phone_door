@@ -13,4 +13,6 @@ public interface CabinetService extends IService<Cabinet> {
     void setCabinetTime(Cabinet cabinet);
 
     List<Cabinet> getall(Integer doorNumber);
+
+    void clearAll(int doorNumber);
 }
